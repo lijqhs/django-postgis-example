@@ -1,0 +1,61 @@
+<style>
+    form {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-top: 10px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        width: 200px;
+    }
+
+    button[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    li {
+        margin-bottom: 10px;
+    }
+</style>
+
+<form method="GET" action="{% url 'search' %}">
+    <label for="lon">Longitude:</label>
+    <input type="text" name="lon" id="lon" required>
+
+    <label for="lat">Latitude:</label>
+    <input type="text" name="lat" id="lat" required>
+
+    <label for="distance">Distance (in meters):</label>
+    <input type="number" name="distance" id="distance" value="5000">
+
+    <button type="submit">Search</button>
+</form>
+
+<ul>
+    {% for restaurant in results %}
+        <li>
+            <strong>{{ restaurant.brand }}</strong><br>
+            Address: {{ restaurant.address }}<br>
+            Distance: {{ restaurant.distance.m|floatformat:0 }} meters
+        </li>
+    {% empty %}
+        <li>No results found.</li>
+    {% endfor %}
+</ul>

@@ -1,0 +1,16 @@
+version: "3"
+services:
+
+  djapp:
+    build:
+      context: .
+      dockerfile: dockerfile
+    image: djsite
+    command: python manage.py runserver 0.0.0.0:1024
+    ports:
+      - "1024:1024"
+    volumes:
+      - ./:/app/
+    env_file:
+      - ./.env
+    # restart: always
